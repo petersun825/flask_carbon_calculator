@@ -1,0 +1,31 @@
+
+
+{% extends "index.html" %}
+
+{% block content %}
+	<body>
+
+		<form method="post" action="/search_location">
+			<fieldset>
+    			<legend>Carbon Calculator:</legend>
+				<label>Address</label>
+				<h3> {{address}} </h3>
+				<label>How many times a week do you use the dishwasher?</label>
+				<input id="diswasher" name="diswasher" type="number"/>
+				<label>How many times a week do you drive to work?</label>
+				<input id="diswasher" name="diswasher" type="number"/>
+				<label>How big is your house?</label>
+				<input id="diswasher" name="diswasher" type="number"/>
+				<input type="submit" />
+			</fieldset>
+		</form>
+		<!-- for loop to go through results of permit -->
+
+
+
+	</body>
+
+<!-- 		<table> -->
+			
+
+{% endblock %}

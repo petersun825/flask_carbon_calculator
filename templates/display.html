@@ -1,0 +1,18 @@
+
+{% extends "index.html" %}
+
+{% block content %}
+
+	<div class='container'>
+
+		<h3> Your Area's Carbon Intensity Is: </h3>
+		<h2> {{carbon}} gCO2 equivalent / kWh </h2>
+
+		<h3> Your Area's Fossil Fuel Percentage Is: </h3>
+		<h2> {{fossil}} %</h2>
+
+		<h3> Your Yearly Carbon Emissions from Electricity is </h3>
+		<h2> {{per_year_carbon}} Tons</h2>
+	</div>
+
+{% endblock %}

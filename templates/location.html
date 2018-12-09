@@ -1,0 +1,26 @@
+
+
+{% extends "index.html" %}
+
+{% block content %}
+
+	<body>
+		<div class='container'>
+		<form method="post" action="/search_location">
+			<fieldset>
+    			<legend>Electricity Carbon Calculator</legend>
+    			<br>
+				<label>What Is Your Address?   </label>
+				&nbsp;&nbsp;&nbsp;&nbsp;<input id="address" name="address" type="text" required/>
+				<br>
+				<label> On Average, how many kWh of electricty do you use each month ?</label>
+				<input id = "elec" name = "elec" type = "number" min="1" required/>
+				<button type="submit">Submit</button>
+
+			</fieldset>
+		</form>
+	</div>
+	</body>
+			
+
+{% endblock %}
