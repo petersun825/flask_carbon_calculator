@@ -1,0 +1,24 @@
+
+{% extends "index.html" %}
+
+{% block content %}
+
+	<div class='container'>
+
+		<h3> Your Area's Carbon Intensity Is: </h3>
+		<h2> {{carbon}} gCO2 equivalent / kWh </h2>
+
+		<h3> Your Area's Fossil Fuel Percentage Is: </h3>
+		<h2> {{fossil}} %</h2>
+
+		<h3> Your Yearly Carbon Emissions from Electricity is: </h3>
+		<h2> {{per_year_carbon}} Tons Per Year</h2>
+
+		<br>
+		<h3> You're Car Releases Approximately: <h3>
+		<h2>{{ normal_car_emission }} Tons of CO2 Per Year </h2>
+		<h3> Switching to an Electric Car Could Save You: </h3>
+		<h2> {{emission_saved}} Tons Per Year</h2>
+	</div>
+
+{% endblock %}

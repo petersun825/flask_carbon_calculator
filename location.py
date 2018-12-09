@@ -16,6 +16,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = boston_permits_postgres
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+class cars():
+    def __init__(self, miles=1, mpg=1):
+        self.miles = miles
+        self.mpg = mpg
+
+    def emissions(self):
+        #emissions is miles divided by miles per gallon, then multiplied by 18.9 lbs per gallon of gasoline and divided by 2000 to get tons
+        #source: https://www.eia.gov/tools/faqs/faq.php?id=307&t=11
+        emission = float(self.miles) / float(self.mpg) * 18.9 / 2000
+        return emission
+
 
 class PermitsException(Exception):
 	pass
@@ -48,8 +59,13 @@ def location():
 
 @app.route('/search_location', methods = ['GET', 'POST'])
 def search_location():
-    #take the user input from page and assign to varialbe address
+    #take the user input from page and assign to variables
     address = request.form['address']
+    elec_usage = request.form['elec']
+    miles = request.form['miles']
+    mpg = request.form['mpg']
+
+    #get emission data and assign to variable
     emission = get_emissions(address)
     
     #fake data if api limit exceeded
@@ -66,7 +82,7 @@ def search_location():
     }
     }
 
-    #emissions
+    #electricity emissions
     if emission['status']=='ok':
         #round results to 2 decimal places for legibility
         carbon = round(carbon_intensity(emission), 2)
@@ -75,14 +91,22 @@ def search_location():
         return jsonify('error')
     
     #obtain electricity emissions
-    elec_usage = request.form['elec']
+    
 
     #multiply per kWh of electricity usage by grams of carbon emission per kWh convert to tons of carbon per year
     per_year_carbon = float(carbon) * float(elec_usage) * 12 / 907185
     #reduce to 2 decimals
     per_year_carbon = round(per_year_carbon, 2)
 
-    return render_template('display.html', carbon=carbon, fossil = fossil, per_year_carbon = per_year_carbon)
+    #instantiate average car
+    normal_car = cars(miles, mpg)
+    normal_car_emission = round(normal_car.emissions(), 2)
+    #tesla gets 135 mpg equivalent
+    tesla_emission = cars(miles, 135).emissions()
+    tesla_emission = round(tesla_emission, 2)
+
+    emission_saved = normal_car_emission - tesla_emission 
+    return render_template('display.html', carbon=carbon, fossil = fossil, per_year_carbon = per_year_carbon, normal_car_emission = normal_car_emission,  emission_saved = emission_saved)
 
 @app.errorhandler(404)
 def not_found_error(error):
