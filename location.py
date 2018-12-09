@@ -30,11 +30,13 @@ def carbon_intensity(emission_data):
     carbon = data['carbonIntensity']
     return carbon
 
+#get fossil percentage from API data
 def fossil_percentage(emission_data):
     data = emission_data['data']
     fossil = data['fossilFuelPercentage']
     return fossil
 
+#reduce the number of decimals
 def reduce_decimals(info):
     num = str("{:.2f}".format(info))
     return num
@@ -74,17 +76,13 @@ def search_location():
     
     #obtain electricity emissions
     elec_usage = request.form['elec']
+
     #multiply per kWh of electricity usage by grams of carbon emission per kWh convert to tons of carbon per year
     per_year_carbon = float(carbon) * float(elec_usage) * 12 / 907185
     #reduce to 2 decimals
     per_year_carbon = round(per_year_carbon, 2)
 
     return render_template('display.html', carbon=carbon, fossil = fossil, per_year_carbon = per_year_carbon)
-    
-
-
-
-
 
 @app.errorhandler(404)
 def not_found_error(error):
