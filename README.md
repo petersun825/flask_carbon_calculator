@@ -1,5 +1,5 @@
 # flask_carbon_calculator
-converts electricity to carbon emissions calculator
+converts electricity to carbon emissions calculator.  Uses python handle the calculations and some html/bootstrap on the front end to capture user data.  Convert users input location into coordinates to send to API go get carbon intensity.  Data from API is then fed back to the backend and calculation is done to figure out carbon output.  The output is displayed on the front end.  Compares your gasoline powered car with an electricity powered tesla vehicle, the tesla vehicle takes into account how "clean" or "dirty" the grid is.  
 
 Tech Stack
 Python Flask
